@@ -1,6 +1,6 @@
 from domain.user import CreateUser
 from util import result
-from fastapi import APIRouter
+from fastapi import APIRouter, Query
 
 from service import user as user_service
 
