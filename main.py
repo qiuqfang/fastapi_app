@@ -1,19 +1,33 @@
 from fastapi import FastAPI
-from fastapi.exceptions import RequestValidationError
+from fastapi.exceptions import RequestValidationError, HTTPException
 from fastapi.responses import JSONResponse
+
+from controller.index import router
 from util import result
 from controller.user import userRouter
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
-
-app.include_router(userRouter)
 
 
 @app.exception_handler(RequestValidationError)
 async def validation_exception_handler(request, exc):
-    return JSONResponse(content=result.failure(message="请求参数有误！"))
+    print(exc, exc.errors()[0]["msg"])
+    return JSONResponse(content=result.failure(message=exc.errors()[0]["msg"]))
 
 
-@app.get("/")
-def main():
-    return "FastAPI-App"
+origins = [
+    "http://localhost",
+    "http://localhost:8080",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+app.include_router(router=router)
+app.include_router(userRouter, tags=["用户"])
