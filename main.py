@@ -3,9 +3,10 @@ from fastapi.exceptions import RequestValidationError, HTTPException
 from fastapi.responses import JSONResponse
 
 from controller.index import router
+from middleware import cors_middleware
+from redis import register_redis
 from util import result
 from controller.user import userRouter
-from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
@@ -17,18 +18,9 @@ async def validation_exception_handler(request, exc):
     return JSONResponse(content=result.failure(message=exc.errors()[0]["msg"]))
 
 
-origins = [
-    "http://localhost",
-    "http://localhost:8080",
-]
+cors_middleware(app)
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+register_redis(app)
 
 app.include_router(router=router)
 app.include_router(userRouter, tags=["用户"])
