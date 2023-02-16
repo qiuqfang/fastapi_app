@@ -2,11 +2,11 @@ from fastapi import FastAPI
 from fastapi.exceptions import RequestValidationError, HTTPException
 from fastapi.responses import JSONResponse
 
-from controller.index import router
+from controller.index_controller import router
 from middleware import cors_middleware
 from redis import register_redis
 from util import result
-from controller.user import userRouter
+from controller.user_controller import userRouter
 
 app = FastAPI()
 
