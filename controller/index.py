@@ -4,6 +4,6 @@ from util import result
 router = APIRouter()
 
 
-@router.get("/")
+@router.get("/", summary="FastAPI")
 def index():
     return result.ok(data={})
