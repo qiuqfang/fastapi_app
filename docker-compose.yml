@@ -1,0 +1,25 @@
+version: "3"
+services:
+#  依赖
+  mysql:
+    image: mysql
+    container_name: fastapi_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 123456
+    ports:
+      - 3306:3306
+  redis:
+    image: 'redis'
+    container_name: fastapi_redis
+    ports:
+      - 6379:6379
+#  应用
+  fastapi_app:
+    image: fastapi_app
+    container_name: app
+    ports:
+      - 8000:8000
+    external_links:
+      - mysql:mysql
+      - redis:redis
