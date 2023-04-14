@@ -1,6 +1,6 @@
 version: "3"
 services:
-#  依赖
+  #  依赖
   mysql:
     image: mysql
     container_name: fastapi_mysql
@@ -14,8 +14,10 @@ services:
     container_name: fastapi_redis
     ports:
       - "6379:6379"
-#  应用
+  #  应用
   fastapi_app:
+    environment:
+      MODE: "PROD"
     image: fastapi_app
     container_name: app
     ports:

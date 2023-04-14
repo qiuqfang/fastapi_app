@@ -5,7 +5,7 @@ from config.main import settings
 def register_redis(app):
     @app.on_event("startup")
     async def startup_event():
-        app.state.redis = await aioredis.StrictRedis(host=settings.redis_host)
+        app.state.redis = await aioredis.StrictRedis(host=settings.REDIS_HOST)
         print(app.state.redis)
 
     @app.on_event("shutdown")
