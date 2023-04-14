@@ -1,5 +1,5 @@
 from domain.user import CreateUser
-from model.user import User
+from config.models import User
 from config.database import db
 
 
