@@ -8,7 +8,7 @@ from config.redis import register_redis
 from util import result
 from controller.user_controller import userRouter
 
-app = FastAPI()
+app = FastAPI(title="脚手架项目")
 
 
 @app.exception_handler(RequestValidationError)
@@ -20,5 +20,5 @@ cors_middleware(app)
 
 register_redis(app)
 
-app.include_router(router=router)
+app.include_router(router=router, include_in_schema=False)
 app.include_router(userRouter, tags=["用户"])

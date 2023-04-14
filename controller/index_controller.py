@@ -5,7 +5,7 @@ from util import result
 router = APIRouter()
 
 
-@router.get("/", summary="FastAPI")
+@router.get("/")
 async def index(request: Request):
     await request.app.state.redis.set("111", 222)
     return result.ok(data={})
