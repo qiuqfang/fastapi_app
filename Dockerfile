@@ -1,5 +1,5 @@
 # 使用 Python3.10.8 环境进行构建
-FROM python:3.10.8
+FROM python:3.12.2
 # 工作目录
 WORKDIR /app
 # 复制依赖文件
